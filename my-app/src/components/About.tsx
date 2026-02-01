@@ -208,7 +208,13 @@ const LeetCodeDashboard = memo(function LeetCodeDashboard() {
 
                 // console.log(`Fetching fresh LeetCode data for ${key}`);
                 const response = await fetch(url);
-                if (!response.ok) throw new Error(`API error: ${response.status}`);
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        // console.log(`LeetCode data not found for ${key} (404).`);
+                        return null;
+                    }
+                    throw new Error(`API error: ${response.status}`);
+                }
                 const data = await response.json();
 
                 localStorage.setItem(key, JSON.stringify(data));
@@ -216,11 +222,11 @@ const LeetCodeDashboard = memo(function LeetCodeDashboard() {
 
                 return data;
             } catch (error) {
-                console.error(`Error fetching ${key}:`, error);
+                // console.warn(`Error fetching ${key}:`, error);
                 // Fallback to cached data if request fails, even if expired
                 const cachedData = localStorage.getItem(key);
                 if (cachedData) {
-                    console.log(`Falling back to cached data for ${key}`);
+                    // console.log(`Falling back to cached data for ${key}`);
                     return JSON.parse(cachedData);
                 }
                 return null;

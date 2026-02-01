@@ -31,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-black">
       <body
+        suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} ${oswald.variable} antialiased`}
       >
         <div className="flex min-h-screen flex-col lg:flex-row overflow-x-hidden max-w-full">
