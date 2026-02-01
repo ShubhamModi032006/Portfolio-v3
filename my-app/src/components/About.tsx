@@ -192,19 +192,46 @@ const LeetCodeDashboard = memo(function LeetCodeDashboard() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchWithFallback = async (url: string) => {
+        const fetchWithCache = async (url: string, key: string) => {
+            const cacheTimeKey = `${key}_last_fetch`;
+            const cacheDuration = 3600000; // 1 hour in milliseconds
+            const now = Date.now();
+
             try {
-                const res = await fetch(url);
-                if (!res.ok) return null;
-                return await res.json();
-            } catch (e) { return null; }
+                const cachedData = localStorage.getItem(key);
+                const lastFetch = localStorage.getItem(cacheTimeKey);
+
+                if (cachedData && lastFetch && (now - parseInt(lastFetch, 10) < cacheDuration)) {
+                    // console.log(`Using cached LeetCode data for ${key}`);
+                    return JSON.parse(cachedData);
+                }
+
+                // console.log(`Fetching fresh LeetCode data for ${key}`);
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`API error: ${response.status}`);
+                const data = await response.json();
+
+                localStorage.setItem(key, JSON.stringify(data));
+                localStorage.setItem(cacheTimeKey, now.toString());
+
+                return data;
+            } catch (error) {
+                console.error(`Error fetching ${key}:`, error);
+                // Fallback to cached data if request fails, even if expired
+                const cachedData = localStorage.getItem(key);
+                if (cachedData) {
+                    console.log(`Falling back to cached data for ${key}`);
+                    return JSON.parse(cachedData);
+                }
+                return null;
+            }
         };
 
         const fetchData = async () => {
             const [statsData, contestData, calendarData] = await Promise.all([
-                fetchWithFallback('https://alfa-leetcode-api.onrender.com/ShubhamModi032006/profile'),
-                fetchWithFallback('https://alfa-leetcode-api.onrender.com/ShubhamModi032006/contest'),
-                fetchWithFallback('https://alfa-leetcode-api.onrender.com/ShubhamModi032006/submission-calendar')
+                fetchWithCache('https://alfa-leetcode-api.onrender.com/ShubhamModi032006/profile', 'leetcode_stats'),
+                fetchWithCache('https://alfa-leetcode-api.onrender.com/ShubhamModi032006/contest', 'leetcode_contest'),
+                fetchWithCache('https://alfa-leetcode-api.onrender.com/ShubhamModi032006/submission-calendar', 'leetcode_calendar')
             ]);
 
             // If API fails (returns null), use fallback data
