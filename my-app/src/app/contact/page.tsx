@@ -1,4 +1,10 @@
 import ContactComponent from "@/components/Contact";
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: "Contact Me",
+    description: "Get in touch with me for collaboration, freelance work, or any inquiries.",
+};
 
 export default function ContactPage() {
     return (
