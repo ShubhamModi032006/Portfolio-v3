@@ -4,6 +4,9 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
     title: "Technical Skills",
     description: "A comprehensive list of my technical skills and technologies I work with.",
+    alternates: {
+        canonical: "https://www.shubhammodi.in/skills",
+    },
 };
 
 export default function SkillsPage() {

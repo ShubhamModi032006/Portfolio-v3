@@ -4,6 +4,9 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
     title: "Contact Me",
     description: "Get in touch with me for collaboration, freelance work, or any inquiries.",
+    alternates: {
+        canonical: "https://www.shubhammodi.in/contact",
+    },
 };
 
 export default function ContactPage() {

@@ -20,6 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.shubhammodi.in"),
   title: {
     default: "Review Portfolio | Shubham Modi",
     template: "%s | Shubham Modi",
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://portfolio-v3.shubham-modi.com",
+    url: "https://www.shubhammodi.in",
     siteName: "Shubham Modi Portfolio",
     title: "Shubham Modi - Full Stack Developer",
     description: "Explore the portfolio of Shubham Modi, featuring innovative web projects and technical expertise.",

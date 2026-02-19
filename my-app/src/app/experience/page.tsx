@@ -3,6 +3,9 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
     title: "Professional Experience",
     description: "Explore my professional work history and career milestones.",
+    alternates: {
+        canonical: "https://www.shubhammodi.in/experience",
+    },
 };
 
 export default function ExperiencePage() {
