@@ -37,7 +37,7 @@ export default function Sidebar() {
     }, [isOpen]);
 
     const SidebarContent = () => (
-        <div className="flex h-full w-full flex-col justify-between p-6 lg:p-12">
+        <div className="flex  w-full flex-col justify-between p-6 lg:p-12">
             {/* Mobile Header in Overlay */}
             <div className="flex w-full items-center justify-between lg:hidden mb-12">
                 <span className="font-oswald text-xl font-bold tracking-tighter text-white">
@@ -65,7 +65,7 @@ export default function Sidebar() {
                                 <Link
                                     href={item.href}
                                     className={clsx(
-                                        "block font-oswald text-5xl font-semibold uppercase leading-[1.1] tracking-tighter sm:text-7xl lg:text-[7.15rem] lg:leading-[0.97]",
+                                        "block font-oswald text-5xl font-semibold uppercase leading-[1.1] tracking-tighter sm:text-7xl lg:text-[6.86rem] lg:leading-[0.97]",
                                         "transition-colors duration-300",
                                         isActive
                                             ? "text-blue-600"
