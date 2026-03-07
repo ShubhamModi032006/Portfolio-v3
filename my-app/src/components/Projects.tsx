@@ -33,7 +33,7 @@ const projects = [
         title: "File Uploader",
         category: "Full Stack",
         image: "https://placehold.co/650x550/E9F0E6/333?text=Multer+Storage",
-        link: "#",
+        link: "https://file-store-locally.vercel.app/login",
         github: "#",
         description: "Backend project for local file storage using Node.js and Multer.",
         technologies: ["Node.js", "Multer", "Express"],
