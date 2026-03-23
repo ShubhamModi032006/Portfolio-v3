@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Oswald, Geist, Geist_Mono } from "next/font/google";
 import Sidebar from "@/components/Sidebar";
+import PageTransitionScroller from "@/components/PageTransitionScroller";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -86,7 +87,9 @@ export default function RootLayout({
 
           {/* Main Content Area */}
           <main className="w-full min-w-0 lg:w-[55%] lg:ml-[45%] min-h-screen bg-black text-slate-400 pt-16 lg:pt-0 overflow-x-hidden">
-            {children}
+            <PageTransitionScroller>
+              {children}
+            </PageTransitionScroller>
             <Analytics />
           </main>
         </div>
