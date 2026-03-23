@@ -103,7 +103,7 @@ export default function PageTransitionScroller({ children }: { children: React.R
       // Wait for loader transition before pushing the new route
       setTimeout(() => {
         router.push(route);
-      }, 700);
+      }, 900);
     };
 
     window.addEventListener("wheel", handleWheel, { passive: true });
