@@ -37,7 +37,7 @@ export default function Sidebar() {
     }, [isOpen]);
 
     const SidebarContent = () => (
-        <div className="flex  w-full flex-col justify-between p-6 lg:p-12">
+        <div className="flex h-full w-full flex-col justify-between lg:justify-normal p-6 lg:p-12">
             {/* Mobile Header in Overlay */}
             <div className="flex w-full items-center justify-between lg:hidden mb-12">
                 <span className="font-oswald text-xl font-bold tracking-tighter text-white">
@@ -56,8 +56,8 @@ export default function Sidebar() {
             </div>
 
             {/* Navigation */}
-            <nav aria-label="Main navigation" className="flex flex-1 flex-col justify-center">
-                <ul className="flex flex-col gap-6 lg:gap-0 text-center lg:text-left">
+            <nav aria-label="Main navigation" className="flex flex-1 flex-col justify-center lg:overflow-hidden">
+                <ul className="flex flex-col gap-6 lg:gap-0 text-center lg:text-left w-full">
                     {navItems.map((item) => {
                         const isActive = pathname === item.href;
                         return (
@@ -65,7 +65,7 @@ export default function Sidebar() {
                                 <Link
                                     href={item.href}
                                     className={clsx(
-                                        "block font-oswald text-5xl font-semibold uppercase leading-[1.1] tracking-tighter sm:text-7xl lg:text-[6.86rem] lg:leading-[0.97]",
+                                        "block font-oswald text-5xl font-semibold uppercase leading-[1.1] tracking-tighter sm:text-7xl lg:text-[clamp(5rem,14vh,7rem)] lg:leading-[0.97]",
                                         "transition-colors duration-300",
                                         isActive
                                             ? "text-blue-600"
@@ -114,7 +114,7 @@ export default function Sidebar() {
             {/* Main Sidebar Container */}
             <aside
                 className={clsx(
-                    "fixed inset-0 z-50 bg-black transition-transform duration-500 ease-in-out lg:translate-x-0 lg:border-r lg:border-white/10 lg:static lg:h-screen lg:w-full",
+                    "fixed inset-0 z-50 bg-black transition-transform duration-500 ease-in-out lg:translate-x-0 lg:border-r lg:border-white/10 lg:static lg:h-dvh lg:w-full",
                     isOpen ? "translate-x-0" : "-translate-x-full"
                 )}
             >
