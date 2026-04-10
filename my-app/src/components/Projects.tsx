@@ -11,7 +11,7 @@ const projects = [
         title: "FinCtrl",
         category: "Full Stack",
         image: "https://res.cloudinary.com/dqhn4dq02/image/upload/v1741248835/hudrwpm8ah1hnlfo0ahm.png",
-        link: "https://fin-ctrl-frontend-1.onrender.com",
+        link: "https://fin-ctrl.vercel.app/",
         github: "https://github.com/shubhamiscodding/Fin_Ctrl",
         description: "A comprehensive financial management system to track expenses and manage budgets effectively.",
         technologies: ["MongoDB", "Express", "React", "Node.js"],
