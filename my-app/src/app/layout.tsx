@@ -4,6 +4,7 @@ import Sidebar from "@/components/Sidebar";
 import PageTransitionScroller from "@/components/PageTransitionScroller";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 
 const oswald = Oswald({
   variable: "--font-oswald",
@@ -75,6 +76,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-black">
+      <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-HMY25KWJ1V"
+        />
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-HMY25KWJ1V');
+          `}
+        </Script>
+      </head>
       <body
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} ${oswald.variable} antialiased`}
