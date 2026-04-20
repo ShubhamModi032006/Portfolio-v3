@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { clsx } from "clsx";
+import { PanelLeftClose } from "lucide-react";
 
 const navItems = [
     { name: "About", href: "/about" },
@@ -15,7 +16,7 @@ const navItems = [
     { name: "Resume", href: "/resume" },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ isSidebarClosed, setIsSidebarClosed }: { isSidebarClosed?: boolean, setIsSidebarClosed?: (closed: boolean) => void } = {}) {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
 
@@ -36,8 +37,8 @@ export default function Sidebar() {
         };
     }, [isOpen]);
 
-    const SidebarContent = () => (
-        <div className="flex h-full w-full flex-col justify-between lg:justify-normal p-6 lg:p-12">
+    const sidebarContent = (
+        <div className={clsx("flex h-full w-full flex-col justify-between p-6", isSidebarClosed ? "lg:py-12 lg:px-0 lg:items-center" : "lg:justify-normal lg:p-12")}>
             {/* Mobile Header in Overlay */}
             <div className="flex w-full items-center justify-between lg:hidden mb-12">
                 <span className="font-oswald text-xl font-bold tracking-tighter text-white">
@@ -51,9 +52,7 @@ export default function Sidebar() {
                 </button>
             </div>
 
-            {/* Desktop Logo Placeholder */}
-            <div className="hidden lg:block">
-            </div>
+
 
             {/* Navigation */}
             <nav aria-label="Main navigation" className="flex flex-1 flex-col justify-center lg:overflow-hidden">
@@ -65,14 +64,20 @@ export default function Sidebar() {
                                 <Link
                                     href={item.href}
                                     className={clsx(
-                                        "block font-oswald text-5xl font-semibold uppercase leading-[1.1] tracking-tighter sm:text-7xl lg:text-[clamp(5rem,14vh,7rem)] lg:leading-[0.97]",
-                                        "transition-colors duration-300",
+                                        "block font-oswald text-5xl font-semibold uppercase leading-[1.1] tracking-tighter sm:text-7xl transition-colors duration-300",
+                                        isSidebarClosed ? "lg:text-[3rem] lg:leading-none text-center" : "lg:text-[clamp(5rem,14vh,7rem)] lg:leading-[0.97]",
                                         isActive
                                             ? "text-blue-600"
                                             : "text-white hover:text-blue-600"
                                     )}
+                                    title={isSidebarClosed ? item.name : undefined}
                                 >
-                                    {item.name}
+                                    <span className={clsx(isSidebarClosed ? "hidden lg:inline" : "hidden")}>
+                                        {item.name.charAt(0)}
+                                    </span>
+                                    <span className={clsx(isSidebarClosed ? "lg:hidden" : "")}>
+                                        {item.name}
+                                    </span>
                                 </Link>
                             </li>
                         );
@@ -118,7 +123,7 @@ export default function Sidebar() {
                     isOpen ? "translate-x-0" : "-translate-x-full"
                 )}
             >
-                <SidebarContent />
+                {sidebarContent}
             </aside>
         </>
     );

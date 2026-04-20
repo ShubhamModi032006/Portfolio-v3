@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Oswald, Geist, Geist_Mono } from "next/font/google";
-import Sidebar from "@/components/Sidebar";
-import PageTransitionScroller from "@/components/PageTransitionScroller";
+import ClientLayout from "@/components/ClientLayout";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
@@ -95,20 +94,10 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} ${oswald.variable} antialiased`}
       >
-        <div className="flex min-h-screen flex-col lg:flex-row overflow-x-hidden max-w-full">
-          {/* Sidebar Area */}
-          <div className="lg:w-[45%] lg:fixed lg:inset-y-0 lg:z-40 shrink-0">
-            <Sidebar />
-          </div>
-
-          {/* Main Content Area */}
-          <main className="w-full min-w-0 lg:w-[55%] lg:ml-[45%] min-h-screen bg-black text-slate-400 pt-16 lg:pt-0 overflow-x-hidden">
-            <PageTransitionScroller>
-              {children}
-            </PageTransitionScroller>
-            <Analytics />
-          </main>
-        </div>
+        <ClientLayout>
+          {children}
+        </ClientLayout>
+        <Analytics />
       </body>
     </html >
   );

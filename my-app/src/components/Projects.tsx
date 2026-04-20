@@ -121,7 +121,7 @@ const ProjectCard = memo(function ProjectCard({ project, onVideoClick }: { proje
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            className="group relative h-[450px] w-full rounded-3xl overflow-hidden bg-white/5 border border-white/10"
+            className="group relative w-full min-h-[450px] aspect-[4/3] sm:aspect-video lg:aspect-[16/7] max-h-[85vh] rounded-3xl overflow-hidden bg-white/5 border border-white/10"
         >
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
@@ -129,8 +129,8 @@ const ProjectCard = memo(function ProjectCard({ project, onVideoClick }: { proje
                     src={project.image}
                     alt={project.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-fill transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, 100vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
                     unoptimized
                 />
             </div>
