@@ -15,9 +15,51 @@ interface Certificate {
     link: string;
     id_code?: string;
     type?: string;
+    category?: "Hackathons" | "Other";
 }
 
 const certificates: Certificate[] = [
+    // --- HACKATHONS ---
+    {
+        id: 101,
+        title: "HTT Hackathon",
+        issuer: "SVNIT",
+        date: "2024",
+        image: "/HTT-NIT.pdf",
+        link: "https://drive.google.com/file/d/1uBls7L8wHn8dgzan76ROSHtDO1-ct6ao/view?usp=drive_link",
+        type: "competition",
+        category: "Hackathons"
+    },
+    {
+        id: 102,
+        title: "Odoo Hackathon",
+        issuer: "Indus University",
+        date: "2024",
+        image: "/OdooxIndus.pdf",
+        link: "https://drive.google.com/file/d/1QCS3va2HsYlNNTLoRR-6r-5uZYLoAC9I/view?usp=drive_link",
+        type: "competition",
+        category: "Hackathons"
+    },
+    {
+        id: 103,
+        title: "Openpools Hackathon",
+        issuer: "Openpools",
+        date: "2024",
+        image: "/openpools.pdf",
+        link: "https://drive.google.com/file/d/1TQ3DCx6-QUzt46SQlh9FDDGUrjvNah3L/view?usp=drive_link",
+        type: "competition",
+        category: "Hackathons"
+    },
+    {
+        id: 104,
+        title: "RIFT Hackathon",
+        issuer: "PW Pune",
+        date: "2024",
+        image: "/RIFT.pdf",
+        link: "https://drive.google.com/file/d/1Ym9SXcEeElGaUZ_gWJ44SaBd9LaH15nT/view?usp=drive_link",
+        type: "competition",
+        category: "Hackathons"
+    },
     // --- HIGH PRIORITY (Intermediate / Specialized) ---
     {
         id: 1,
@@ -147,14 +189,31 @@ const CertCard = ({ cert, index }: { cert: Certificate; index: number }) => (
         <div className="h-1 w-full bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:via-neon-main/50 transition-colors" />
 
         {/* Image Section */}
-        <div className="relative h-48 w-full overflow-hidden bg-neutral-900">
-            <Image
-                src={cert.image}
-                alt={cert.title}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover opacity-60 grayscale transition-all duration-500 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
-            />
+        <div className="relative h-48 w-full overflow-hidden bg-neutral-900 pointer-events-none">
+            {cert.image ? (
+                cert.image.endsWith('.pdf') ? (
+                    <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+                        <iframe
+                            src={`${cert.image}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                            className="absolute top-1/2 left-1/2 w-[800px] h-[600px] -translate-x-1/2 -translate-y-[55%] scale-[0.4] group-hover:scale-[0.42] object-cover opacity-70 grayscale transition-all duration-500 pointer-events-none origin-center"
+                            title={cert.title}
+                        />
+                    </div>
+                ) : (
+                    <Image
+                        src={cert.image}
+                        alt={cert.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover opacity-60 grayscale transition-all duration-500 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
+                        unoptimized
+                    />
+                )
+            ) : (
+                <div className="absolute inset-0 bg-gradient-to-br from-[#121212] to-[#0a0a0a] flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                    <Award className="w-16 h-16 text-white/10 group-hover:text-neon-main/30 group-hover:scale-110 transition-all duration-500" />
+                </div>
+            )}
 
             {/* Overlay Gradient */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] to-transparent opacity-90" />
@@ -209,12 +268,19 @@ const CertCard = ({ cert, index }: { cert: Certificate; index: number }) => (
 );
 
 export default function Certificates() {
+    const tabs = ["Hackathons", "Other"];
+    const [activeTab, setActiveTab] = useState("Hackathons");
+
+    const filteredCertificates = activeTab === "Hackathons"
+        ? certificates.filter(c => c.category === "Hackathons")
+        : certificates.filter(c => c.category !== "Hackathons");
+
     return (
         <section id="certifications" className="min-h-screen py-24 bg-black relative">
             <div className="px-6 md:px-12">
 
                 {/* Header - Standardized Alignment */}
-                <div className="max-w-4xl mb-20">
+                <div className="max-w-4xl mb-12">
                     <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-white mb-8">
                         LEARNING <br />
                         <span className="text-neutral-500">PATHWAY.</span>
@@ -227,9 +293,45 @@ export default function Certificates() {
                     </div>
                 </div>
 
+                {/* Horizontal Tab Bar (Full Parallelogram Style) */}
+                <div className="flex w-full mb-12 overflow-visible pb-2 px-4 sm:px-6">
+                    {/* The entire outer container is skewed to create sharp slanted edges everywhere! */}
+                    <div className="relative flex bg-[#121212] border border-white/10 w-full overflow-hidden isolate -skew-x-[30deg]">
+                        
+                        {/* The background sliding indicator */}
+                        <div 
+                            className="absolute top-0 bottom-0 w-1/2 bg-white transition-transform duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]"
+                            style={{
+                                transform: `translateX(${activeTab === tabs[0] ? "0%" : "100%"})`,
+                            }}
+                        />
+
+                        {/* The center cross line divider */}
+                        <div className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-white/20" />
+
+                        {tabs.map((tab) => {
+                            const isActive = activeTab === tab;
+                            return (
+                                <button
+                                    key={tab}
+                                    onClick={() => setActiveTab(tab)}
+                                    className="relative flex-1 py-4 px-4 sm:px-6 z-10 font-mono tracking-wider uppercase transition-colors duration-300 text-center whitespace-nowrap"
+                                >
+                                    {/* Counter-skew the text so it stays completely upright and readable */}
+                                    <div className="skew-x-[30deg]">
+                                        <span className={`transition-colors duration-300 text-xs sm:text-sm ${isActive ? "text-black font-bold drop-shadow-sm" : "text-neutral-500 hover:text-white"}`}>
+                                            {tab}
+                                        </span>
+                                    </div>
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+
                 {/* Grid Layout */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 w-full">
-                    {certificates.map((cert, index) => (
+                    {filteredCertificates.map((cert, index) => (
                         <CertCard key={cert.id} cert={cert} index={index} />
                     ))}
                 </div>
