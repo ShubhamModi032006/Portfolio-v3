@@ -229,14 +229,16 @@ const ProjectCard = memo(function ProjectCard({ project, index, onVideoClick }: 
     )
 })
 
-const CATEGORIES = ["Full Stack", "Frontend", "Figma"];
+const CATEGORIES = ["All", "Full Stack", "Frontend", "Figma", "Hackathon"];
 
 export default function Projects() {
     const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
-    const [activeCategory, setActiveCategory] = useState("Full Stack");
+    const [activeCategory, setActiveCategory] = useState("All");
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    const filteredProjects = projects.filter(p => p.category === activeCategory);
+    const filteredProjects = activeCategory === "All" 
+        ? projects 
+        : projects.filter(p => p.category === activeCategory);
 
     return (
         <section id="projects" className="py-24 bg-black min-h-screen">
