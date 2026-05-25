@@ -4,116 +4,8 @@ import { useState, memo } from "react";
 import { ArrowUpRight, Github, X, Play, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-
-const projects = [
-    {
-        id: 1,
-        title: "FinCtrl",
-        category: "Full Stack",
-        image: "https://res.cloudinary.com/dqhn4dq02/image/upload/v1741248835/hudrwpm8ah1hnlfo0ahm.png",
-        link: "https://fin-ctrl.vercel.app/",
-        github: "https://github.com/shubhamiscodding/Fin_Ctrl",
-        description: "A comprehensive financial management system to track expenses and manage budgets effectively.",
-        technologies: ["MongoDB", "Express", "React", "Node.js"],
-        demoVideo: "https://res.cloudinary.com/dqhn4dq02/video/upload/v1740999850/p5ditex5ags07kvajspz.mp4",
-        featured: true
-    },
-    {
-        id: 2,
-        title: "Fast-Typing",
-        category: "Full Stack",
-        image: "https://placehold.co/650x550/E9F0E6/333?text=Fast+Typing",
-        link: "https://gemini-type.vercel.app/",
-        github: "https://github.com/ShubhamModi032006/Gemini-type",
-        description: "Generates text with a fast-typing effect using the Gemini API.",
-        technologies: ["Gemini API", "Next.js"],
-    },
-    {
-        id: 3,
-        title: "File Uploader",
-        category: "Full Stack",
-        image: "https://placehold.co/650x550/E9F0E6/333?text=Multer+Storage",
-        link: "https://file-store-locally.vercel.app/login",
-        github: "#",
-        description: "Backend project for local file storage using Node.js and Multer.",
-        technologies: ["Node.js", "Multer", "Express"],
-    },
-    {
-        id: 4,
-        title: "Progcap Clone",
-        category: "Frontend",
-        image: "https://cdn.prod.website-files.com/6193782af8f15b5c5763d1de/619b51335bf284cd78d1b5e1_Progcap_Logo.svg",
-        link: "https://progcap-clone.onrender.com",
-        github: "https://github.com/shubhamiscodding/progcap-clone",
-        description: "A pixel-perfect clone of the Progcap platform showcasing responsive design.",
-        technologies: ["React", "CSS"],
-    },
-    {
-        id: 5,
-        title: "Apollo Clone",
-        category: "Frontend",
-        image: "https://images.apollo247.in/images/pharmacy_logo.svg?tr=q-70,w-100,dpr-2,c-at_max",
-        link: "https://apolloclone.onrender.com",
-        github: "https://github.com/shubhamiscodding/apolloclone",
-        description: "A faithful recreation of the Apollo healthcare platform interface.",
-        technologies: ["HTML", "CSS"],
-    },
-    {
-        id: 6,
-        title: "Youtube Clone",
-        category: "Frontend",
-        image: "https://cdn.iconscout.com/icon/free/png-512/free-youtube-104-432560.png?f=webp&w=512",
-        link: "https://youtube-frontend-ch16.onrender.com",
-        github: "https://github.com/shubhamiscodding/spotify-with-react/tree/main/you-vite-react",
-        description: "A feature-rich YouTube clone implementing core functionalities.",
-        technologies: ["React", "API"],
-    },
-    {
-        id: 7,
-        title: "Finctrl UI",
-        category: "Figma",
-        image: "https://res.cloudinary.com/dqhn4dq02/image/upload/v1741248835/hudrwpm8ah1hnlfo0ahm.png",
-        link: "https://www.figma.com/proto/DNBtQzukvRqvlJOR15WNiD/FINAL-PROJECT?node-id=165-316&t=IJSgkeDiJ1yPqsuJ-1",
-        description: "A sleek Figma prototype for a financial management tool.",
-        technologies: ["Figma", "UI Design"],
-    },
-    {
-        id: 8,
-        title: "Smellwell",
-        category: "Figma",
-        image: "https://placehold.co/600x400/E9F0E6/333?text=SmellWell",
-        link: "https://www.figma.com/proto/9tFxecNpUhwc9yXIunCS2P/something-like-cloning?page-id=218%3A73&node-id=227-440&viewport=588%2C159%2C0.11&t=IH2rnykLPCUofh1R-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=227%3A440",
-        description: "A fragrance brand landing page design featuring advanced prototyping.",
-        technologies: ["Figma"],
-    },
-    {
-        id: 9,
-        title: "Cricknews",
-        category: "Figma",
-        image: "https://wallpapercave.com/wp/wp6916613.jpg",
-        link: "https://www.figma.com/proto/9tFxecNpUhwc9yXIunCS2P/something-like-cloning?node-id=90-400&t=uwCXGdlQ3AxLspQy-1",
-        description: "A Figma prototype for a cricket news platform with interactive elements.",
-        technologies: ["Figma"],
-    },
-    {
-        id: 10,
-        title: "Instagram",
-        category: "Figma",
-        image: "https://res.cloudinary.com/dqhn4dq02/image/upload/v1745691177/czc457xnddhzuvobj8xt.jpg",
-        link: "https://www.figma.com/proto/9tFxecNpUhwc9yXIunCS2P/something-like-cloning?node-id=43-87&t=uwCXGdlQ3AxLspQy-1",
-        description: "A Figma recreation of Instagram's interface with prototyping features.",
-        technologies: ["Figma"],
-    },
-    {
-        id: 11,
-        title: "Social Media",
-        category: "Figma",
-        image: "https://res.cloudinary.com/dqhn4dq02/image/upload/v1740113499/hinsjwtehr2aoxyj0f0s.png",
-        link: "https://www.figma.com/proto/1rN6JDvA6MVeTwyABaoaHO/EXAM-BUT-UNIQE-IDEA?page-id=0%3A1&node-id=2-2&p=f&viewport=500%2C484%2C0.63&t=YXlQOTdePAZgLyKv-1&scaling=min-zoom&content-scaling=fixed",
-        description: "A unique one-page social media design created in Figma.",
-        technologies: ["Figma"],
-    }
-];
+import { useRouter } from "next/navigation";
+import { projects, Project } from "@/data/projects";
 
 const gradientClasses = [
     "from-indigo-500/20 to-purple-500/20",
@@ -123,15 +15,25 @@ const gradientClasses = [
     "from-fuchsia-500/20 to-pink-500/20",
 ];
 
-const ProjectCard = memo(function ProjectCard({ project, index, onVideoClick }: { project: typeof projects[0], index: number, onVideoClick: (url: string) => void }) {
+const ProjectCard = memo(function ProjectCard({ project, index, onVideoClick }: { project: Project, index: number, onVideoClick: (url: string) => void }) {
     const bgGradient = gradientClasses[index % gradientClasses.length];
+    const router = useRouter();
+
+    const handleCardClick = (e: React.MouseEvent) => {
+        // If user clicked an anchor, button, or their icons, do not trigger card navigation
+        if ((e.target as HTMLElement).closest("a") || (e.target as HTMLElement).closest("button")) {
+            return;
+        }
+        router.push(`/projects/${project.slug}`);
+    };
 
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            className="group relative w-full aspect-[4/3] sm:aspect-square lg:aspect-[4/3] rounded-[2rem] overflow-hidden bg-[#0d0e12] border border-white/5 transition-all duration-500 hover:border-white/10 flex flex-col"
+            onClick={handleCardClick}
+            className="group relative w-full aspect-[4/3] sm:aspect-square lg:aspect-[4/3] rounded-[2rem] overflow-hidden bg-[#0d0e12] border border-white/5 transition-all duration-500 hover:border-white/10 flex flex-col cursor-pointer"
         >
             {/* Soft Gradient Overlay matching the style */}
             <div className={`absolute inset-0 opacity-40 transition-opacity duration-700 bg-gradient-to-br ${bgGradient} group-hover:opacity-70`} />

@@ -8,12 +8,12 @@ import { clsx } from "clsx";
 import { PanelLeftClose } from "lucide-react";
 
 const navItems = [
-    { name: "About", href: "/about" },
-    { name: "Skills", href: "/skills" },
-    { name: "Projects", href: "/projects" },
-    { name: "Certificates", href: "/certificates" },
-    { name: "Contact", href: "/contact" },
-    { name: "Resume", href: "/resume" },
+    { name: "About", href: "/about", short: "A" },
+    { name: "Skills", href: "/skills", short: "S" },
+    { name: "Projects", href: "/projects", short: "P" },
+    { name: "Certificates", href: "/certificates", short: "CE" },
+    { name: "Contact", href: "/contact", short: "CO" },
+    { name: "Resume", href: "/resume", short: "R" },
 ];
 
 export default function Sidebar({ isSidebarClosed, setIsSidebarClosed }: { isSidebarClosed?: boolean, setIsSidebarClosed?: (closed: boolean) => void } = {}) {
@@ -73,7 +73,7 @@ export default function Sidebar({ isSidebarClosed, setIsSidebarClosed }: { isSid
                                     title={isSidebarClosed ? item.name : undefined}
                                 >
                                     <span className={clsx(isSidebarClosed ? "hidden lg:inline" : "hidden")}>
-                                        {item.name.charAt(0)}
+                                        {item.short}
                                     </span>
                                     <span className={clsx(isSidebarClosed ? "lg:hidden" : "")}>
                                         {item.name}
