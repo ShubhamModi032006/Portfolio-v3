@@ -7,8 +7,8 @@ export default function Resume() {
     const [isResumeOpen, setIsResumeOpen] = useState(false);
 
     // Resume URLs - Using the one provided in the request
-    const resumeUrl = "https://drive.google.com/file/d/1FVEb-DmQ_mBNS6Fm5_gi5ktEDr_KzZ9V/preview";
-    const downloadUrl = "https://drive.google.com/u/0/uc?id=1FVEb-DmQ_mBNS6Fm5_gi5ktEDr_KzZ9V&export=download";
+    const resumeUrl = "https://drive.google.com/file/d/10QEWqbe4GajrGo5n1rk2GJBKsCPIf2Jc/preview";
+    const downloadUrl = "https://drive.google.com/u/0/uc?id=10QEWqbe4GajrGo5n1rk2GJBKsCPIf2Jc&export=download";
 
     return (
         <section id="resume" className="min-h-screen py-24 bg-black relative flex flex-col justify-center">
