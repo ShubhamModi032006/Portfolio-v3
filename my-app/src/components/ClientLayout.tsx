@@ -1,16 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { clsx } from "clsx";
 import Sidebar from "@/components/Sidebar";
 import PageTransitionScroller from "@/components/PageTransitionScroller";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
+import LoadingScreen from "@/components/LoadingScreen";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const [isSidebarClosed, setIsSidebarClosed] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const hasLoaded = sessionStorage.getItem("hasLoadedPortfolio");
+    if (hasLoaded === "true") {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const handleLoadingComplete = () => {
+    sessionStorage.setItem("hasLoadedPortfolio", "true");
+    setIsLoading(false);
+  };
   
   return (
     <div className="flex min-h-screen flex-col lg:flex-row overflow-x-hidden max-w-full relative">
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <LoadingScreen onComplete={handleLoadingComplete} />
+        )}
+      </AnimatePresence>
       
       {/* Sidebar Area */}
       <div className={clsx(

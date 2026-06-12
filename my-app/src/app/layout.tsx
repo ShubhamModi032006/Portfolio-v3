@@ -76,6 +76,17 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-black">
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (sessionStorage.getItem("hasLoadedPortfolio") === "true") {
+                  document.documentElement.classList.add("portfolio-loaded");
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-MXE6CY849Q"

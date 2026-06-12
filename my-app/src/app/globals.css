@@ -37,3 +37,7 @@ body {
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
+
+.portfolio-loaded .loading-screen-overlay {
+  display: none !important;
+}
